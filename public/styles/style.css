@@ -1,0 +1,13 @@
+.card-link {
+    display: block; /* Ensures the anchor tag acts like a block-level element */
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherits color from parent, to ensure text color is consistent */
+}
+
+.card-link .w-60 {
+    transition: box-shadow 0.3s ease; /* Optional: Adds smooth transition effect */
+}
+
+.card-link:hover .w-60 {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds hover effect */
+}

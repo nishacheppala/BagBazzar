@@ -1,0 +1,114 @@
+<%- include('./partials/header') %>
+    <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
+        <div class="w-[30%] rounded-md overflow-hidden">
+            <div class="w-full flex justify-center items-center h-80 bg-[<%=product.bgcolor%>]">
+                <img class="h-[20rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="<%= product.name %>">
+            </div>
+            <div class="w-full flex justify-between px-5 py-4 bg-[<%=product.panelcolor%>]">
+                <h3 class="text-2xl"><%= product.name %></h3>
+                <div class="mb-6">
+                    <label for="quantity" class="block text-sm font-large mb-1">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1"
+                        class="w-12 text-center rounded-md border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                  </div>
+                </div>
+            <div class="flex items-center justify-between px-5 py-3 bg-[<%=product.textcolor%>]">
+                <h4 class="text-lg text-white">Net Total</h4>
+                <h2 class="text-lg text-white"><%= product.price %></h2>
+            </div>
+        </div>
+        <div class="w-[70%]">
+            <h3 class="text-xl">Price Breakdown</h3>
+            <div class="px-10 mt-5">
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Total MRP</h4>
+                    <h4>₹<%= product.price %></h4>
+                </div>
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Discount on MRP</h4>
+                    <h4>₹ <%= product.discount %></h4>
+                </div>
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Platform Fee</h4>
+                    <h4>₹ 20</h4>
+                </div>
+                <div class="flex mt-2">
+                    <h4 class="w-1/3">Shipping Fee</h4>
+                    <h4>FREE</h4>
+                </div>
+            </div>
+            <div class="w-full h-[1px] bg-black mt-10"></div>
+            <div class="flex mt-5">
+                <h3 class="w-1/3 text-xl">Total Amount</h3>
+                <h3 class="font-semibold text-xl text-green-600">₹ <%= product.price + 20 - product.discount  %></h3>
+            </div><br>
+            <div class="flex space-x-4 mb-10 ml-12">
+                
+                    <a href="/addtocart/<%= product._id %>" class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-blue-500 rounded-full shadow-md group">
+                        <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-blue-500 group-hover:translate-x-0 ease">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
+                        <span class="absolute flex items-center justify-center w-full h-full text-blue-500 transition-all duration-300 transform group-hover:translate-x-full ease">Add To Cart</span>
+                        <span class="relative invisible">Button Text</span>
+                        </a>
+                
+                <!-- Wishlist Button -->
+<button id="wishlist-btn" class="border-2 flex gap-2 items-center text-blue-800 p-4 px-6 py-3 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ease-out focus:ring-offset-2 relative">
+    <svg id="wishlist-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-all ease-in-out duration-300">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+    </svg>
+    Wishlist
+    <!-- Floating heart that appears on click -->
+    <span class="floating-heart hidden absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-6"></span>
+  </button>
+  
+  <!-- Tailwind CSS with custom styles and transitions -->
+  <style>
+    @keyframes float-up {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+    }
+  
+    /* Floating heart animation */
+    .floating-heart {
+      background-image: url('https://img.icons8.com/ios-filled/50/fa314a/like--v1.png');
+      background-size: contain;
+      animation: float-up 1s ease-in-out forwards;
+    }
+  </style>
+  
+  <!-- JavaScript to handle the click event -->
+  <script>
+    document.getElementById('wishlist-btn').addEventListener('click', function () {
+      const heartIcon = document.getElementById('wishlist-icon');
+      const floatingHeart = this.querySelector('.floating-heart');
+  
+      // Toggle red fill on the heart icon
+      heartIcon.classList.toggle('fill-red-500');
+      heartIcon.classList.toggle('stroke-none');
+  
+      // Show and animate floating heart
+      floatingHeart.classList.remove('hidden'); // Show the floating heart
+      floatingHeart.classList.add('floating-heart'); // Trigger animation
+  
+      // Hide the floating heart after 1 second (same as the animation duration)
+      setTimeout(() => {
+        floatingHeart.classList.add('hidden');
+      }, 1000);
+    });
+  </script>
+  
+              </div>
+            <form action="">
+
+
+            </form>
+        </div>
+    </div>
+    <%- include('./partials/footer') %>

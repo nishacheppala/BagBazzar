@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="font-['helvetica_now_display']">
+    <nav class="w-full flex justify-between px-5 py-3 items-center">
+    <!-- <div class="fixed"> -->
+        <!-- Logo -->
+        <h3 class="text-xl">
+            <img src="/images/BagBazar.png" alt="BagBazar Logo" class="h-12 w-auto" id="logo">
+        </h3>
+
+        <!-- Links and Profile Button -->
+
+        <div class="flex items-center gap-5">
+            <a href="/profile">About Us</a>
+            <a href="/shop">Shop</a>
+            <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+            <% if(loggedin) { %>
+                <a href="/cart">Cart</a>
+            
+                <!-- Profile Dropdown Button -->
+                <div class="relative">
+                    <button id="profileBtn" class="text-gray-700 font-semibold focus:outline-none">
+                        My Account
+                    </button>
+            
+                    <!-- Profile Popup -->
+                    <div id="profilePopup" class="hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                        <div class="p-4 text-center">
+                            <!-- Profile picture -->
+                            <img src="/images/Profile_avatar_placeholder_large.png" class="w-12 h-12 mx-auto rounded-full" alt="Profile Picture">
+            
+                            <!-- Check if user object exists to avoid errors when logged out -->
+                            <% if (user.isadmin==true) { %>
+                                <h3 class="mt-2 text-gray-900 font-semibold">Hello, Admin👋</h3>
+                                <p class="text-sm text-gray-500"><%= user.email %></p>
+                            <% } else if (user) { %>
+                                <h3 class="mt-2 text-gray-900 font-semibold">Hi, <%= user.fullname %>👋</h3>
+                                <p class="text-sm text-gray-500"><%= user.email %></p>
+                            <% } else { %>
+                                <h3 class="mt-2 text-gray-900 font-semibold">Hi, Guest👋</h3>
+                                <p class="text-sm text-gray-500">Not Logged In</p>
+                            <% } %>
+            
+                            <!-- Manage Account button -->
+                            <button class="mt-3 w-full bg-gray-200 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-300">
+                                Manage your Account
+                            </button>
+            
+                            <!-- Logout button -->
+                            <a href="/users/logout" class="block mt-2 w-full text-red-600 hover:text-red-700">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    <!-- </div>     -->
+    </nav>
+
+    <script>
+        // JavaScript to handle the profile popup behavior
+
+        // Select the profile button and popup
+        const profileBtn = document.getElementById('profileBtn');
+        const profilePopup = document.getElementById('profilePopup');
+        const logo = document.querySelector("#logo")
+
+        logo.addEventListener("click",function(){
+            window.location.href = "http://localhost:3000/shop";
+        })
+        // Toggle the popup when clicking the profile button
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profilePopup.classList.toggle('hidden');
+        });
+
+        // Close the popup when clicking anywhere outside
+        window.addEventListener('click', () => {
+            if (!profilePopup.classList.contains('hidden')) {
+                profilePopup.classList.add('hidden');
+            }
+        });
+
+        // Prevent closing the popup when clicking inside it
+        profilePopup.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    </script>
+

@@ -1,0 +1,121 @@
+<%- include('./partials/header') %>
+
+<% if(success.length > 0){ %>
+    <div id="flash-message" class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+        <span class="inline-block mt-1 mb-1 text-white">
+            <%= success %>
+        </span>
+    </div>
+<% } %>
+
+<script>
+    // Wait for the DOM to fully load
+    document.addEventListener("DOMContentLoaded", function() {
+        // Set a timeout to remove the flash message after 3 seconds (3000ms)
+        setTimeout(function() {
+            const flashMessage = document.getElementById("flash-message");
+            if (flashMessage) {
+                flashMessage.style.display = "none";
+            }
+        }, 3000); // 3000 milliseconds = 3 seconds
+    });
+</script>
+            <div class="min-h-screen flex flex-col">
+                <div class="container px-10 py-20 flex flex-grow">
+                    <div class="w-[25%] flex h-screen flex-col items-start">
+                        <div class="flex flex-col">
+                            <a class="block w-fit mb-2" href="/owners/admin/products">All Products</a>
+                            <a class="block w-fit mb-2" href="/owners/admin">Create new product</a>
+                        </div>
+                    </div>
+                    <main class="w-3/4 bg-white p-8 shadow ml-4">
+                        <h2 class="text-xl font-bold mb-4">Edit Product</h2>
+                        <form autocomplete="off" action="/products/edit/<%=product._id%>" method="post" enctype="multipart/form-data">
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold mb-2">Product Details</h3>
+                                <div class="mb-4">
+                                    <label class="block mb-2 font-medium">Product Image</label>
+                                    <input name="image" type="file" class="py-2 px-4 rounded" value="Select File" required>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input name="name" type="text" placeholder="Product Name"
+                                        class="border p-2 rounded w-full" value="<%= product.name %>">
+                                    <input name="price" type="text" placeholder="Product Price"
+                                        class="border p-2 rounded w-full" value="<%= product.price %>">
+                                    <input name="discount" type="text" placeholder="Discount Price"
+                                        class="border p-2 rounded w-full" value="<%= product.discount %>">
+                                        <div class="mx-auto flex items-center justify-center border rounded w-full">
+                                            <div class="group relative cursor-pointer">
+                                                <input type="hidden" name="bagType" id="bagType" value="">
+                                                <div class="flex items-center justify-between space-x-5 bg-white px-4">
+                                                    <a class="menu-hover text-base font-medium text-black lg:mx-4" onClick="">
+                                                       <h3 id="type">Choose Bag Type</h3> <!-- This will be updated with the selected bag type -->
+                                                    </a>
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                        
+                                                <div class="invisible absolute z-50 flex w-full flex-col bg-gray-100 py-1 px-4 text-gray-800 shadow-xl group-hover:visible">
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Duffel')">
+                                                        Duffel
+                                                    </a>
+                                        
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Clutch')">
+                                                        Clutch
+                                                    </a>
+                                        
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Backpack')">
+                                                        Backpack
+                                                    </a>
+                                        
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Crossbody')">
+                                                        Crossbody
+                                                    </a>
+                                        
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Gym Bag')">
+                                                        Gym Bag
+                                                    </a>
+                                        
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Beach Bag')">
+                                                        Beach Bag
+                                                    </a>
+                                        
+                                                    <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2" onclick="setBagType('Laptop Bag')">
+                                                        Laptop Bag
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <script>
+                                            function setBagType(value) {
+                                                document.getElementById('bagType').value = value; // Update hidden input with selected bag type
+                                                document.getElementById('type').innerText = value; // Update the text to the selected bag type
+                                                // alert('Selected Bag Type: ' + value); // Optional: To see the selected value
+                                            }
+                                        </script>
+                                                                               
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input name="bgcolor" type="text" placeholder="Background Color"
+                                        class="border p-2 rounded w-full" value="<%= product.bgcolor %>">
+                                    <input name="panelcolor" type="text" placeholder="Panel Color"
+                                        class="border p-2 rounded w-full" value="<%= product.panelcolor %>">
+                                    <input name="textcolor" type="text" placeholder="Text Color"
+                                        class="border p-2 rounded w-full" value="<%= product.textcolor %>">
+                                </div>
+                            </div>
+                            <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit"
+                                value="Update Product">
+                        </form>
+                    </main> 
+                </div>
+            </div>
+            <%- include('./partials/footer') %>
