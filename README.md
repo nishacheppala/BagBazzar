@@ -1,5 +1,4 @@
-# BagBazzar
-=======
+
 # BagBazaar
 
 **BagBazaar** is a comprehensive e-commerce web application designed for the buying and selling of bags. It provides a robust platform where sellers can manage their products and users can browse, select, and purchase items. The application uses JWT (JSON Web Token) for secure user authentication, ensuring that only authorized users can access and utilize the web app. Additionally, it supports Google OAuth for seamless login.
@@ -103,4 +102,4 @@ To effectively contribute to or understand the BagBazaar project, it is benefici
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
->>>>>>> 73589d2 (Initial commit)
+
